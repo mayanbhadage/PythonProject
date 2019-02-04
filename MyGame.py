@@ -13,7 +13,7 @@ if chance == 1:
         print ("User's health after heal is {}\n".format(gm.user_health))
     next_turn = "Computer"
 else:
-    computer_choice = gm.computer_choice()
+    computer_choice = gm.computer_choice(gm.comp_health)
     if computer_choice == 1 or computer_choice == 2:
         gm.user_health = gm.attack(computer_choice, gm.user_health)
         print ("User's health after this attack is {}\n".format(gm.user_health))
@@ -38,7 +38,7 @@ while True:
         else:
             next_turn = "Computer"
     else:
-        computer_choice = gm.computer_choice()
+        computer_choice = gm.computer_choice(gm.comp_health)
         if computer_choice == 1 or computer_choice == 2:
             gm.user_health = gm.attack(computer_choice, gm.user_health)
             print ("User's health after this attack is {}\n".format(gm.user_health))

@@ -1,4 +1,5 @@
 import random
+import numpy as np
 from collections import OrderedDict
 
 user_health = 100
@@ -63,16 +64,27 @@ def firstTurn():
 
     return turn
 
-def computer_choice():
-    choice = random.randint(1, 3)
-    if choice == 1 or choice == 2:
-        print("COMPUTER have choosen {} Attack which will do {} damage to the USER".format(moves.keys()[choice],
-                                                                                                  moves.values()[
-                                                                                                      choice]))
-    else:
-        print("COMPUTER have choosen Super Heal which will heal you by {}".format(moves.values()[choice]))
+def computer_choice(health):
+    if (health <= 35):
+        choice = np.random.choice(np.arange(1,4),p=[0.2,0.3,0.5])
+        if choice == 1 or choice == 2:
+            print("COMPUTER have choosen {} Attack which will do {} damage to the USER".format(moves.keys()[choice],
+                                                                                                      moves.values()[
+                                                                                                          choice]))
+        else:
+            print("COMPUTER have choosen Super Heal which will heal you by {}".format(moves.values()[choice]))
+        return choice
 
-    return choice
+    else:
+        choice = random.randint(1, 3)
+        if choice == 1 or choice == 2:
+            print("COMPUTER have choosen {} Attack which will do {} damage to the USER".format(moves.keys()[choice],
+                                                                                                      moves.values()[
+                                                                                                          choice]))
+        else:
+            print("COMPUTER have choosen Super Heal which will heal you by {}".format(moves.values()[choice]))
+
+        return choice
 
 
 
