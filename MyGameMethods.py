@@ -3,6 +3,7 @@ from collections import OrderedDict
 
 user_health = 100
 comp_health = 100
+current_player = None
 moves = OrderedDict()
 moves['X'] = 'x'
 moves['Frost Bolt'] = 0
@@ -24,23 +25,59 @@ def askUser():
         print('2 : FIRE BOLT dmg(10-35)')
         print('3 : SUPER HEAL heal(18-25)\n')
         try:
-            choice = int(raw_input("Please Choose Your Move (1 - 3)"))
+            choice = int(raw_input("Please Choose Your Move (1 - 3)\n"))
         except:
             continue
 
     if choice == 1 or choice == 2:
-        print("You have choosen {} Attack which will do {} damage to the **OTHER PLAYER**".format(moves.keys()[choice],
+        print("USER have choosen {} Attack which will do {} damage to the Computer".format(moves.keys()[choice],
                                                                                                   moves.values()[
                                                                                                       choice]))
     else:
-        print("You have choosen Super Heal which will heal you by {}".format(moves.values()[choice]))
+        print("USER have choosen Super Heal which will heal you by {}".format(moves.values()[choice]))
     return choice
 
 
 def attack(index, health):
-    if index == 1 or index == 2:
-        health = health - moves.values()[index]
+    new_health = health - moves.values()[index]
+    if new_health < 0:
+        new_health = 0
+    return new_health
+
+def heal(index, health):
+    if(health<100):
+        new_health = health + moves.values()[index]
     else:
-        health = health + moves.values()[index]
-    print("Other player health after the attack is {}".format(health))
-    return health
+        new_health = 100
+    if(new_health>100):
+        new_health = 100
+    return new_health
+
+def firstTurn():
+    turn = random.randint(1, 2)
+    if(turn == 1):
+        print("User will play first!")
+
+    else:
+        print("Computer will play first!")
+
+    return turn
+
+def computer_choice():
+    choice = random.randint(1, 3)
+    if choice == 1 or choice == 2:
+        print("COMPUTER have choosen {} Attack which will do {} damage to the USER".format(moves.keys()[choice],
+                                                                                                  moves.values()[
+                                                                                                      choice]))
+    else:
+        print("COMPUTER have choosen Super Heal which will heal you by {}".format(moves.values()[choice]))
+
+    return choice
+
+
+
+def check_win(health):
+    if health <= 0:
+        return True
+    else:
+        return False
