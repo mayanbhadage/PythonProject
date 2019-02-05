@@ -3,15 +3,15 @@ import numpy as np
 from collections import OrderedDict
 import time
 
-
 user_health = 100
 comp_health = 100
-current_player = None
+
 moves = OrderedDict()
 moves['X'] = 'x'
 moves['Frost Bolt'] = 0
 moves['Fire Bolt'] = 0
 moves['Super Heal'] = 0
+
 
 def intro():
     print("-----------------------------------------------------")
@@ -27,6 +27,7 @@ def intro():
     print("--------------------------------------------------")
     print("\t BEST OF LUCK!\n")
     time.sleep(5)
+
 
 def randomAttack():
     moves['Frost Bolt'] = random.randint(18, 25)
@@ -45,13 +46,13 @@ def askUser():
             choice = int(raw_input("Please Choose Your Move (1 - 3)\n"))
         except:
             continue
-
+        print ("\n"*50)
     if choice == 1 or choice == 2:
-        print("USER have choosen {} Attack which will do {} damage to the Computer".format(moves.keys()[choice],
-                                                                                                  moves.values()[
-                                                                                                      choice]))
+        print("USER have chosen {} Attack which will do {} damage to the Computer".format(moves.keys()[choice],
+                                                                                          moves.values()[
+                                                                                              choice]))
     else:
-        print("USER have choosen Super Heal which will heal USER by {}".format(moves.values()[choice]))
+        print("USER have chosen Super Heal which will heal USER by {}".format(moves.values()[choice]))
     return choice
 
 
@@ -61,18 +62,20 @@ def attack(index, health):
         new_health = 0
     return new_health
 
+
 def heal(index, health):
-    if(health<100):
+    if health < 100:
         new_health = health + moves.values()[index]
     else:
         new_health = 100
-    if(new_health>100):
+    if new_health > 100:
         new_health = 100
     return new_health
 
+
 def firstTurn():
     turn = random.randint(1, 2)
-    if(turn == 1):
+    if turn == 1:
         print("User will play first!")
 
     else:
@@ -80,35 +83,39 @@ def firstTurn():
 
     return turn
 
+
 def computer_choice(health):
     print("Thinking....\n")
     time.sleep(1.5)
-    if (health <= 35):
-        choice = np.random.choice(np.arange(1,4),p=[0.2,0.3,0.5])
+    print ("\n" * 50)
+    if health <= 35:
+        choice = np.random.choice(np.arange(1, 4), p=[0.2, 0.3, 0.5])
         if choice == 1 or choice == 2:
-            print("COMPUTER have choosen {} Attack which will do {} damage to the USER".format(moves.keys()[choice],
-                                                                                                      moves.values()[
-                                                                                                          choice]))
+            print("COMPUTER have chosen {} Attack which will do {} damage to the USER".format(moves.keys()[choice],
+                                                                                              moves.values()[
+                                                                                                  choice]))
         else:
-            print("COMPUTER have choosen Super Heal which will COMPUTER you by {}".format(moves.values()[choice]))
+            print("COMPUTER have chosen Super Heal which will COMPUTER you by {}".format(moves.values()[choice]))
         return choice
 
     else:
         choice = random.randint(1, 3)
         if choice == 1 or choice == 2:
-            print("COMPUTER have choosen {} Attack which will do {} damage to the USER".format(moves.keys()[choice],
-                                                                                                      moves.values()[
-                                                                                                          choice]))
+            print("COMPUTER have chosen {} Attack which will do {} damage to the USER".format(moves.keys()[choice],
+                                                                                              moves.values()[
+                                                                                                  choice]))
         else:
-            print("COMPUTER have choosen Super Heal which will Computer you by {}".format(moves.values()[choice]))
+            print("COMPUTER have chosen Super Heal which will Computer you by {}".format(moves.values()[choice]))
 
         return choice
 
-def print_health(uh,ch):
+
+def print_health(uh, ch):
     print ("################")
     print ("User Health : {}".format(uh))
     print ("Comp Health : {}".format(ch))
     print ("################")
+
 
 def check_win(health):
     if health <= 0:
